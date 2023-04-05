@@ -424,7 +424,7 @@ jobs:
   #         channel: cicd-pipelines
   #         template: success_tagged_deployment_1
     
-workflows:   create workflows
+workflows:   #create workflows
   default:
     jobs:
       - build-frontend
