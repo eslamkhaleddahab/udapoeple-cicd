@@ -106,7 +106,7 @@ jobs:
             - frontend/node_modules
           key: frontend-deps
 
-  build-backend: # create build-backend
+  build-backend: 
     docker:
       - image: cimg/node:13.8.0
     steps:
@@ -138,7 +138,7 @@ jobs:
             npm install
             npm  test      
 
-  test-backend: # create test-backend
+  test-backend: 
     docker:
       - image: cimg/node:13.8.0
     steps:
@@ -417,7 +417,7 @@ jobs:
   #         channel: cicd-pipelines
   #         template: success_tagged_deployment_1
     
-   workflows:   #create workflows
+   workflows:  
     default:
       jobs:
        - build-frontend
