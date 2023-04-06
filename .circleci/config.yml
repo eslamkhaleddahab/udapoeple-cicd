@@ -174,11 +174,12 @@ jobs:
       - restore_cache:
           keys: [backend-deps]
       - run:
-          name: Back-end scab 
+          name: Back-end scan
           command: |
-            cd backend
+            cd frontend
             npm install
             npm audit --audit-level=critical
+
 
   # deploy-infrastructure: 
   #   docker:
@@ -419,7 +420,7 @@ jobs:
     
   workflows:
     default:
-     jobs:
+    jobs:
       - build-frontend
 
       - build-backend
@@ -430,7 +431,7 @@ jobs:
           requires: [build-backend]
 
       - scan-backend:
-          requires: [build-backend]
+         requires: [build-backend]
       - scan-frontend:
           requires: [build-frontend]
 
