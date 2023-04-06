@@ -1,17 +1,17 @@
 version: 2.1
 
 
-# orbs:   #steps for connect slack email and massage 
-#   slack: circleci/slack@4.10.1
+orbs:   #steps for connect slack email and massage 
+  slack: circleci/slack@4.10.1
 
 
-# commands:
-#   notify_on_failure:
-#       steps:
-#         - slack/notify:
-#             event: fail
-#             channel: $SLACK_DEFAULT_CHANNEL
-#             template: basic_fail_1
+commands:
+  notify_on_failure:
+      steps:
+        - slack/notify:
+            event: fail
+            channel: cicd-pipeline
+            template: basic_fail_1
 
 #   install_ansible: #we will install ansible 
 #     description: Install Ansible
@@ -105,6 +105,7 @@ jobs:
           paths:
             - frontend/node_modules
           key: frontend-deps
+      - notify_on_failure
 
   build-backend: 
     docker:
@@ -122,7 +123,7 @@ jobs:
       - save_cache:
           paths: [backend/node_modules]
           key: backend-deps
-      #notify_on_failure
+      - notify_on_failure
 
   test-frontend: 
     docker:
@@ -136,7 +137,8 @@ jobs:
           command: |
             cd frontend
             npm install
-            npm  test      
+            npm  test  
+      - notify_on_failure    
 
   test-backend: 
     docker:
@@ -151,7 +153,7 @@ jobs:
             cd backend
             npm install
             npm  test
-  
+      - notify_on_failure  
   scan-frontend: 
     docker:
       - image: cimg/node:13.8.0
@@ -167,6 +169,7 @@ jobs:
             npm audit fix --force --audit-level=critical
             npm audit fix --force --audit-level=critical
             npm audit --audit-level=critical
+      - notify_on_failure      
 
   scan-backend: 
     docker:
@@ -183,7 +186,7 @@ jobs:
             npm audit fix --force --audit-level=critical
             npm audit fix --force --audit-level=critical
             npm audit --audit-level=critical
-
+      - notify_on_failure
 
   # deploy-infrastructure: 
   #   docker:
@@ -413,14 +416,14 @@ jobs:
   #             echo cant clean
   #           fi
 
-  # notify_on_success:
-  #   docker:
-  #     - image: cimg/base:stable
-  #   steps:
-  #     - slack/notify:
-  #         event: pass
-  #         channel: cicd-pipelines
-  #         template: success_tagged_deployment_1
+  notify_on_success:
+    docker:
+      - image: cimg/base:stable
+    steps:
+      - slack/notify:
+          event: pass
+          channel: cicd-pipeline
+          template: success_tagged_deployment_1
     
 workflows:  # create workflows
   default:
@@ -435,6 +438,12 @@ workflows:  # create workflows
           requires: [build-backend]
       - scan-frontend:
           requires: [build-frontend]
+      - notify_on_success:
+         requires:
+         - test-frontend
+         - test-backend
+         - scan-frontend
+         - scan-backend    
 
       # - deploy-infrastructure:
       #     # requires: [test-frontend, test-backend, scan-frontend, scan-backend]
