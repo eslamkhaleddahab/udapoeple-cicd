@@ -152,33 +152,33 @@ jobs:
             npm install
             npm  test
   
-  # scan-frontend: 
-  #   docker:
-  #     - image: cimg/node:13.8.0
-  #   steps:
-  #     - checkout
-  #     - restore_cache:
-  #         keys: [frontend-deps]
-  #     - run:
-  #         name: Front-end scan
-  #         command: |
-  #           cd frontend
-  #           npm install
-  #           npm audit --audit-level=critical
+  scan-frontend: 
+    docker:
+      - image: cimg/node:13.8.0
+    steps:
+      - checkout
+      - restore_cache:
+          keys: [frontend-deps]
+      - run:
+          name: Front-end scan
+          command: |
+            cd frontend
+            npm install
+            npm audit --audit-level=critical
 
-  # scan-backend: 
-  #   docker:
-  #     - image: cimg/node:13.8.0
-  #   steps:
-  #     - checkout
-  #     - restore_cache:
-  #         keys: [backend-deps]
-  #     - run:
-  #         name: Back-end scan
-  #         command: |
-  #           cd frontend
-  #           npm install
-  #           npm audit --audit-level=critical
+  scan-backend: 
+    docker:
+      - image: cimg/node:13.8.0
+    steps:
+      - checkout
+      - restore_cache:
+          keys: [backend-deps]
+      - run:
+          name: Back-end scan
+          command: |
+            cd frontend
+            npm install
+            npm audit --audit-level=critical
 
 
   # deploy-infrastructure: 
