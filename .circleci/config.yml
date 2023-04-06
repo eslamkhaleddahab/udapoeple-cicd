@@ -1,4 +1,4 @@
-version: 2.1
+# version: 2.1
 
 
 # orbs:   #steps for connect slack email and massage 
@@ -419,21 +419,20 @@ jobs:
   #         template: success_tagged_deployment_1
     
  workflows:  # create workflows
-  default:
-  
-  jobs:
-      - build-frontend
-      - build-backend
+    default:
+      jobs:
+       - build-frontend
+       - build-backend
       
-      - test-frontend:
-          requires: [build-frontend]
-      - test-backend:
-          requires: [build-backend]
+       - test-frontend:
+           requires: [build-frontend]
+       - test-backend:
+           requires: [build-backend]
       
-      - scan-backend:
-          requires: [build-backend]
-      - scan-frontend:
-          requires: [build-frontend]
+       - scan-backend:
+           requires: [build-backend]
+       - scan-frontend:
+           requires: [build-frontend]
 
       # - deploy-infrastructure:
       #     # requires: [test-frontend, test-backend, scan-frontend, scan-backend]
