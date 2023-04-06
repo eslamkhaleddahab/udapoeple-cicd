@@ -418,7 +418,7 @@ jobs:
   #         template: success_tagged_deployment_1
     
   workflows:
-   default:
+    default:
     jobs:
       - build-frontend
 
