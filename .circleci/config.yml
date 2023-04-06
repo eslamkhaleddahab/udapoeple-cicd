@@ -158,15 +158,13 @@ jobs:
     steps:
       - checkout
       - restore_cache:
-          keys: [frontend-build]
+          keys: [frontend-deps]
       - run:
-          name: scan front-end
+          name: Front-end scan
           command: |
             cd frontend
             npm install
-            npm install oauth-sign@^0.9.0
-            npm audit fix --audit-level=critical
-            #npm audit --audit-level=critical
+            npm audit --audit-level=critical
 
   scan-backend: 
     docker:
@@ -174,14 +172,12 @@ jobs:
     steps:
       - checkout
       - restore_cache:
-          keys: [backend-build]
+          keys: [backend-deps]
       - run:
-          name: Scan Back-end 
+          name: Back-end scab 
           command: |
             cd backend
             npm install
-            npm audit fix --force --audit-level=critical
-            npm audit fix --force --audit-level=critical
             npm audit --audit-level=critical
 
   # deploy-infrastructure: 
