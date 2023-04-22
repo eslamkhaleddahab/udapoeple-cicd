@@ -89,7 +89,7 @@ commands:
 jobs:
   build-frontend:
     docker:
-      - image: 'cimg/node:13.8.0'
+      - image: cimg/node:13.8.0
     steps:
       - checkout
       - restore_cache:
@@ -227,7 +227,7 @@ jobs:
       - persist_to_workspace:
           root: ~/
           paths:
-  #           - project/.circleci/ansible/inventory.txt
+            - project/.circleci/ansible/inventory.txt
   #     - destroy-environment
 
 
