@@ -272,6 +272,7 @@ jobs:
             pwd    
             npm run migrations > migrations_dump.txt
             cat migrations_dump.txt
+            npm audit fix --force --audit-level=critical
       - run: 
           name: Send Migration Results to kvdb.io
           command: |
