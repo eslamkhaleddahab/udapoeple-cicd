@@ -15,10 +15,5 @@
   "bugs": {
     "url": "https://github.com/mareimorsy/udacity-cloud-devops-final-project/issues"
   },
-  "homepage": "https://github.com/mareimorsy/udacity-cloud-devops-final-project#readme",
-  "dependencies": {
-    "ajv": "^6.12.6",
-    "reflect-metadata": "^0.1.12",
-    "winston": "^2.4.7"
-  }
+  "homepage": "https://github.com/mareimorsy/udacity-cloud-devops-final-project#readme"
 }
